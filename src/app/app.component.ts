@@ -24,12 +24,15 @@ export class AppComponent {
     this.counterService.decrement(2);
   }
 
-  asyncIncrement() {
+  async asyncIncrement() {
     this.loadingCount ++;
-    this.counterService.asyncIncrement().subscribe(
-      () => this.loadingCount --,
-      (err) => console.error(err),
-    );
+    try{
+      await this.counterService.asyncIncrement().toPromise()
+    }catch(err){
+      console.error(err)
+    }finally{
+      this.loadingCount --
+    }
   }
 
   isLoading(): boolean {
