@@ -9,3 +9,8 @@ if (environment.production) {
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule);
+
+export interface Environment {
+  production: boolean;
+  host: string;
+}

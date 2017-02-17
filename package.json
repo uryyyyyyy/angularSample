@@ -15,7 +15,8 @@
     "test:ci": "ng test --code-coverage --watch=false",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
-    "server": "node static-server.js",
+    "server:static": "node static-server.js",
+    "server:api": "node api-server.js",
     "e2e": "ng e2e"
   },
   "private": true,
