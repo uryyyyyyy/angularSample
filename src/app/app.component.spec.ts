@@ -4,8 +4,6 @@ import {BehaviorSubject} from 'rxjs/Rx';
 import {CounterService} from './services/counter.service';
 
 describe('HogeComponent', () => {
-  let component: AppComponent;
-  let fixture: ComponentFixture<AppComponent>;
   const counterServiceMock = {point: new BehaviorSubject(0)};
 
   beforeEach(() => {
@@ -15,17 +13,17 @@ describe('HogeComponent', () => {
         {provide: CounterService, useValue: counterServiceMock}
       ]
     }).compileComponents();
-    fixture = TestBed.createComponent(AppComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const component = fixture.componentInstance;
     expect(component).toBeTruthy();
   });
 
   it(`should have as title 'app works!'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
     const app = fixture.debugElement.componentInstance;
     expect(app.point).toEqual(0);
   });
@@ -38,6 +36,8 @@ describe('HogeComponent', () => {
   });
 
   it('should call increment', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const component = fixture.componentInstance;
     spyOn(component, 'increment');
     const buttons: NodeListOf<HTMLButtonElement> = fixture.debugElement.nativeElement.querySelectorAll('button');
     buttons[0].click();
@@ -45,6 +45,8 @@ describe('HogeComponent', () => {
   });
 
   it('should call asyncIncrement', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const component = fixture.componentInstance;
     spyOn(component, 'asyncIncrement');
     const buttons: NodeListOf<HTMLButtonElement> = fixture.debugElement.nativeElement.querySelectorAll('button');
     buttons[2].click();

@@ -12,7 +12,7 @@
     "build:prod": "ng build --prod",
     "test:watch": "ng test",
     "test": "ng test --watch=false",
-    "test:ci": "ng test --code-coverage --watch=false",
+    "test:coverage": "ng test --code-coverage --watch=false",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
     "server:static": "node static-server.js",

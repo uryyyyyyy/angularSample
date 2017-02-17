@@ -26,12 +26,12 @@ export class AppComponent {
 
   async asyncIncrement() {
     this.loadingCount ++;
-    try{
-      await this.counterService.asyncIncrement().toPromise()
-    }catch(err){
-      console.error(err)
-    }finally{
-      this.loadingCount --
+    try {
+      await this.counterService.asyncIncrement().toPromise();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      this.loadingCount --;
     }
   }
 
