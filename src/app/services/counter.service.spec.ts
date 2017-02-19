@@ -3,7 +3,7 @@ import {MockBackend, MockConnection} from '@angular/http/testing';
 import {CounterService, messageEndPoint} from './counter.service';
 import {Observable} from 'rxjs/Rx';
 
-describe('HttpClientService', () => {
+describe('CounterService', () => {
 
   const defaultOptions = new BaseRequestOptions();
 
