@@ -7,7 +7,7 @@ describe('HttpClientService', () => {
 
   const defaultOptions = new BaseRequestOptions();
 
-  it('increment()', () => {
+  it('increment() should increase point', () => {
     const service = new CounterService(null);
     service.increment(3);
     expect(service.point.getValue()).toBe(3);
@@ -22,7 +22,7 @@ describe('HttpClientService', () => {
     expect(httpMock.get).toHaveBeenCalledWith(messageEndPoint, jasmine.any(Object));
   });
 
-  it('asyncIncrement() success', () => {
+  it('asyncIncrement() should increase point', () => {
     const backend = new MockBackend();
     const service = new CounterService(new Http(backend, defaultOptions));
     backend.connections.subscribe((connection: MockConnection) => {
@@ -36,7 +36,7 @@ describe('HttpClientService', () => {
     expect(service.point.getValue()).toBe(100);
   });
 
-  it('asyncIncrement() bad response', () => {
+  it('asyncIncrement() should fail with bad response', () => {
     const backend = new MockBackend();
     const service = new CounterService(new Http(backend, defaultOptions));
     backend.connections.subscribe((connection: MockConnection) => {
@@ -49,5 +49,4 @@ describe('HttpClientService', () => {
       expect(err).toBe(`response.status is bad: 400`);
     });
   });
-
 });

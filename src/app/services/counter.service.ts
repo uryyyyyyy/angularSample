@@ -54,9 +54,9 @@ export class CounterService {
     return Observable.throw(errMsg);
   }
 
-  asyncIncrement(): Observable<void> {
+  asyncIncrement(): Observable<{num: number}> {
     return this.fetchNumber()
-      .map((obj: {num: number}) => this.point.next(this.point.getValue() + obj.num));
+      .do((obj: {num: number}) => this.point.next(this.point.getValue() + obj.num));
   }
 
 }

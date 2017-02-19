@@ -1,10 +1,14 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 import {AppComponent} from './app.component';
 import {BehaviorSubject} from 'rxjs/Rx';
 import {CounterService} from './services/counter.service';
 
-describe('HogeComponent', () => {
-  const counterServiceMock = {point: new BehaviorSubject(0)};
+describe('AppComponent', () => {
+  const counterServiceMock = {
+    point: new BehaviorSubject(0),
+    increment: () => void(0),
+    asyncIncrement: () => void(0)
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -21,35 +25,42 @@ describe('HogeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it(`should have as title 'app works!'`, () => {
+  it(`should have point value`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const app = fixture.debugElement.componentInstance;
     expect(app.point).toEqual(0);
   });
 
-  it('should render title in a h1 tag', () => {
+  it('should render point', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelectorAll('p')[1].textContent).toContain(`Point: 0`);
+    const pTag = compiled.querySelectorAll('p')[1];
+    expect(pTag.textContent).toContain(`Point: 0`);
+    const service = fixture.debugElement.injector.get(CounterService);
+    service.point.next(3);
+    fixture.detectChanges();
+    expect(pTag.textContent).toContain(`Point: 3`);
   });
 
   it('should call increment', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const component = fixture.componentInstance;
-    spyOn(component, 'increment');
-    const buttons: NodeListOf<HTMLButtonElement> = fixture.debugElement.nativeElement.querySelectorAll('button');
-    buttons[0].click();
-    expect(component.increment).toHaveBeenCalled();
+    const service = fixture.debugElement.injector.get(CounterService);
+    spyOn(service, 'increment');
+    const button = fixture.debugElement.nativeElement.querySelectorAll('button')[0];
+    button.click();
+    expect(service.increment).toHaveBeenCalledTimes(1);
+    expect(service.increment).toHaveBeenCalledWith(3);
   });
 
   it('should call asyncIncrement', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const component = fixture.componentInstance;
-    spyOn(component, 'asyncIncrement');
-    const buttons: NodeListOf<HTMLButtonElement> = fixture.debugElement.nativeElement.querySelectorAll('button');
-    buttons[2].click();
-    expect(component.asyncIncrement).toHaveBeenCalled();
+    const service = fixture.debugElement.injector.get(CounterService);
+    spyOn(service, 'asyncIncrement');
+    const button = fixture.debugElement.nativeElement.querySelectorAll('button')[2];
+    button.click();
+    expect(service.asyncIncrement).toHaveBeenCalledTimes(1);
+    expect(service.asyncIncrement).toHaveBeenCalledWith();
   });
 });
