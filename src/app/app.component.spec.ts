@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 import {AppComponent} from './app.component';
-import {BehaviorSubject} from 'rxjs/Rx';
+import {BehaviorSubject, Observable} from 'rxjs/Rx';
 import {CounterService} from './services/counter.service';
 
 describe('AppComponent', () => {
@@ -62,5 +62,16 @@ describe('AppComponent', () => {
     button.click();
     expect(service.asyncIncrement).toHaveBeenCalledTimes(1);
     expect(service.asyncIncrement).toHaveBeenCalledWith();
+  });
+
+  it('should work when asyncIncrement failed', async () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const service = fixture.debugElement.injector.get(CounterService);
+    spyOn(service, 'asyncIncrement').and.returnValue(Observable.throw('WTF'));
+    spyOn(console, 'error');
+    const button = fixture.debugElement.nativeElement.querySelectorAll('button')[2];
+    await button.click();
+    expect(console.error).toHaveBeenCalledTimes(1);
+    expect(console.error).toHaveBeenCalledWith('WTF');
   });
 });
