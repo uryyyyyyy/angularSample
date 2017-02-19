@@ -16,7 +16,6 @@
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
     "server:static": "node static-server.js",
-    "server:api": "node api-server.js",
     "e2e": "ng e2e"
   },
   "private": true,

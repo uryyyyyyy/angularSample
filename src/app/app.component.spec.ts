@@ -6,8 +6,7 @@ import {CounterService} from './services/counter.service';
 describe('AppComponent', () => {
   const counterServiceMock = {
     point: new BehaviorSubject(0),
-    increment: () => void(0),
-    asyncIncrement: () => void(0)
+    increment: () => void(0)
   };
 
   beforeEach(() => {
@@ -52,15 +51,5 @@ describe('AppComponent', () => {
     button.click();
     expect(service.increment).toHaveBeenCalledTimes(1);
     expect(service.increment).toHaveBeenCalledWith(3);
-  });
-
-  it('should call asyncIncrement', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const service = fixture.debugElement.injector.get(CounterService);
-    spyOn(service, 'asyncIncrement');
-    const button = fixture.debugElement.nativeElement.querySelectorAll('button')[2];
-    button.click();
-    expect(service.asyncIncrement).toHaveBeenCalledTimes(1);
-    expect(service.asyncIncrement).toHaveBeenCalledWith();
   });
 });

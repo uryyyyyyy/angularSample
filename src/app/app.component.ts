@@ -9,7 +9,6 @@ import {CounterService} from './services/counter.service';
 export class AppComponent {
 
   point: number;
-  loadingCount = 0; // 複数リクエストが来ることがあるのでboolでなくnumber
 
   constructor(private counterService: CounterService) {
     this.point = counterService.point.getValue();
@@ -22,20 +21,5 @@ export class AppComponent {
 
   decrement() {
     this.counterService.decrement(2);
-  }
-
-  async asyncIncrement() {
-    this.loadingCount ++;
-    try {
-      await this.counterService.asyncIncrement().toPromise();
-    } catch (err) {
-      console.error(err);
-    } finally {
-      this.loadingCount --;
-    }
-  }
-
-  isLoading(): boolean {
-    return this.loadingCount !== 0;
   }
 }
